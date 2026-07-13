@@ -51,6 +51,15 @@
             overflow: hidden;
             height: 100%;
         }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-none {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 <body class="bg-cream-50 dark:bg-midnight-900 text-midnight-900 dark:text-cream-100 selection:bg-cream-200 dark:selection:bg-midnight-800 antialiased flex flex-col justify-between h-full transition-colors duration-300">
@@ -162,7 +171,7 @@
                     <!-- Age -->
                     <div class="p-4 sm:p-5 bg-cream-100/40 dark:bg-midnight-900/50 rounded-xl border border-cream-200/50 dark:border-midnight-500/20 flex flex-col justify-center min-h-[90px]">
                         <p class="text-xs text-midnight-800/50 dark:text-cream-100/50 font-bold mb-1"><i class="fa-solid fa-cake-candles mr-1.5"></i>나이</p>
-                        <p class="text-base sm:text-lg font-bold text-midnight-800 dark:text-cream-100">29세</p>
+                        <p class="text-base sm:text-lg font-bold text-midnight-800 dark:text-cream-100">29세 (1998년생)</p>
                     </div>
 
                     <!-- Residence -->
@@ -213,7 +222,7 @@
                     <!-- Relationship -->
                     <div class="p-4 sm:p-5 bg-cream-100/40 dark:bg-midnight-900/50 rounded-xl border border-cream-200/50 dark:border-midnight-500/20 flex flex-col justify-between min-h-[90px]">
                         <p class="text-xs font-bold text-indigoCustom-500 dark:text-indigoCustom-500 uppercase tracking-wider mb-1">인간관계 특징</p>
-                        <p class="text-sm font-semibold text-midnight-800/90 dark:text-cream-200 leading-relaxed">낯가림이 심하지만 친해지면 장난을 많이 치는 성격입니다.</p>
+                        <p class="text-sm font-semibold text-midnight-800/90 dark:text-cream-200 leading-relaxed">무표정에 낯가림이 심하지만 친해지면 장난을 많이 치는 성격입니다.</p>
                     </div>
 
                     <!-- Communication -->
@@ -271,7 +280,7 @@
                             <span class="text-sm sm:text-base font-bold text-midnight-800 dark:text-cream-100">콘텐츠 시청</span>
                         </div>
                         <div class="text-sm font-semibold text-midnight-800/80 dark:text-cream-200 text-right truncate max-w-[200px] sm:max-w-sm">
-                            드라마 및 예능 시청 (나는솔로, 김부장 등)
+                            드라마 및 예능 시청
                         </div>
                     </div>
 
@@ -290,7 +299,7 @@
                             <span class="text-base sm:text-lg">✈️</span>
                             <span class="text-sm sm:text-base font-bold text-midnight-800 dark:text-cream-100">여행</span>
                         </div>
-                        <div class="text-sm font-semibold text-midnight-800/80 dark:text-cream-200">새로운 곳으로의 여행</div>
+                        <div class="text-sm font-semibold text-midnight-800/80 dark:text-cream-200">국내여행, 해외여행</div>
                     </div>
                 </div>
 
@@ -322,11 +331,25 @@
                 <form id="guestbook-form" onsubmit="saveComment(event)" class="space-y-3 mb-4 shrink-0">
                     <div class="flex gap-2">
                         <input type="text" id="comment-nickname" placeholder="닉네임" required maxlength="10" 
-                            class="w-1/3 px-3 py-2 bg-cream-100/60 dark:bg-midnight-900/40 border border-cream-200 dark:border-midnight-500/20 text-sm rounded-xl focus:outline-none focus:border-indigoCustom-500 dark:focus:border-indigoCustom-500 text-midnight-800 dark:text-cream-100">
+                            class="w-1/3 px-3 py-2.5 bg-cream-100/60 dark:bg-midnight-900/40 border border-cream-200 dark:border-midnight-500/20 text-sm rounded-xl focus:outline-none focus:border-indigoCustom-500 dark:focus:border-indigoCustom-500 text-midnight-800 dark:text-cream-100">
                         <input type="text" id="comment-message" placeholder="이영후 님에게 따뜻한 한마디를 남겨보세요." required maxlength="60" 
-                            class="w-2/3 px-3 py-2 bg-cream-100/60 dark:bg-midnight-900/40 border border-cream-200 dark:border-midnight-500/20 text-sm rounded-xl focus:outline-none focus:border-indigoCustom-500 dark:focus:border-indigoCustom-500 text-midnight-800 dark:text-cream-100">
+                            class="w-2/3 px-3 py-2.5 bg-cream-100/60 dark:bg-midnight-900/40 border border-cream-200 dark:border-midnight-500/20 text-sm rounded-xl focus:outline-none focus:border-indigoCustom-500 dark:focus:border-indigoCustom-500 text-midnight-800 dark:text-cream-100">
                     </div>
-                    <button type="submit" class="w-full py-2 bg-indigoCustom-500 hover:bg-indigoCustom-600 text-cream-50 font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-sm">
+
+                    <!-- 🚀 One-Click Quick Message Presets (Horizontal Scrollable Chips) -->
+                    <div class="flex gap-2 overflow-x-auto py-1 scrollbar-none shrink-0" style="-ms-overflow-style: none; scrollbar-width: none;">
+                        <button type="button" onclick="fillPresetMessage('화이팅! ⭐')" class="whitespace-nowrap px-3.5 py-1.5 bg-cream-100/80 dark:bg-midnight-900/60 hover:bg-cream-200/50 dark:hover:bg-midnight-700/50 border border-cream-200 dark:border-midnight-500/20 hover:border-indigoCustom-500 dark:hover:border-indigoCustom-500 text-[11px] sm:text-xs rounded-full font-semibold text-midnight-800 dark:text-cream-200 transition-colors">
+                            ⭐ 화이팅!
+                        </button>
+                        <button type="button" onclick="fillPresetMessage('잘했어요! ☕')" class="whitespace-nowrap px-3.5 py-1.5 bg-cream-100/80 dark:bg-midnight-900/60 hover:bg-cream-200/50 dark:hover:bg-midnight-700/50 border border-cream-200 dark:border-midnight-500/20 hover:border-indigoCustom-500 dark:hover:border-indigoCustom-500 text-[11px] sm:text-xs rounded-full font-semibold text-midnight-800 dark:text-cream-200 transition-colors">
+                            ☕ 잘했어요
+                        </button>
+                        <button type="button" onclick="fillPresetMessage('최고에요 ✨')" class="whitespace-nowrap px-3.5 py-1.5 bg-cream-100/80 dark:bg-midnight-900/60 hover:bg-cream-200/50 dark:hover:bg-midnight-700/50 border border-cream-200 dark:border-midnight-500/20 hover:border-indigoCustom-500 dark:hover:border-indigoCustom-500 text-[11px] sm:text-xs rounded-full font-semibold text-midnight-800 dark:text-cream-200 transition-colors">
+                            ✨ 최고에요
+                        </button>
+                    </div>
+
+                    <button type="submit" class="w-full py-2.5 bg-indigoCustom-500 hover:bg-indigoCustom-600 text-cream-50 font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-sm">
                         한마디 등록하기
                     </button>
                 </form>
@@ -591,6 +614,14 @@
                 "'": '&#039;'
             };
             return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // 🚀 One-Click Preset Feature
+        function fillPresetMessage(text) {
+            const messageInput = document.getElementById('comment-message');
+            messageInput.value = text;
+            messageInput.focus();
+            showToast("메시지가 자동 입력되었습니다! ✍️");
         }
 
         function loadComments() {
