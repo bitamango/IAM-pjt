@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>이영후 포트폴리오</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -44,41 +44,19 @@
         body {
             font-family: "Pretendard", sans-serif;
             background-color: #FDFCF7; /* cream-50 */
+            -webkit-tap-highlight-color: transparent;
         }
-        /* Custom scrollbar to match the midnight theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FAF6ED;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2A4365;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #1A2A40;
-        }
-        /* Page Transition Animations */
-        .page-transition {
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-        .page-hidden {
-            display: none;
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        .page-visible {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+        /* Lock screen bounce scroll on mobile browsers */
+        html, body {
+            overflow: hidden;
+            height: 100%;
         }
     </style>
 </head>
-<body class="text-midnight-900 selection:bg-cream-200 antialiased overflow-x-hidden min-h-screen flex flex-col justify-between">
+<body class="text-midnight-900 selection:bg-cream-200 antialiased flex flex-col justify-between h-full">
 
-    <!-- Navigation Bar -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-cream-50/80 backdrop-blur-md border-b border-cream-200 transition-all duration-300">
+    <!-- Navigation Bar (Fixed top, tight layout) -->
+    <header class="w-full bg-cream-50/80 backdrop-blur-md border-b border-cream-200 shrink-0 z-50">
         <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="javascript:void(0)" onclick="navigateTo('gate')" class="text-lg font-bold tracking-tight text-midnight-800 flex items-center gap-2">
                 <span class="w-8 h-8 rounded-lg bg-midnight-800 text-cream-50 flex items-center justify-center font-extrabold text-xs">YH</span>
@@ -89,7 +67,7 @@
                 <i class="fa-solid fa-bars text-lg"></i>
             </button>
             <!-- Desktop Nav Items -->
-            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-midnight-800/80">
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-midnight-800/80">
                 <a href="javascript:void(0)" onclick="navigateTo('gate')" class="hover:text-midnight-800 transition-colors"><i class="fa-solid fa-house"></i> 처음으로</a>
                 <a href="javascript:void(0)" onclick="navigateTo('basic')" class="hover:text-midnight-800 transition-colors">기본 정보</a>
                 <a href="javascript:void(0)" onclick="navigateTo('personality')" class="hover:text-midnight-800 transition-colors">가치관 & 성향</a>
@@ -97,322 +75,237 @@
             </nav>
         </div>
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-dropdown" class="hidden md:hidden bg-cream-100 border-b border-cream-200">
-            <nav class="flex flex-col p-4 space-y-2 font-semibold text-midnight-800">
-                <a href="javascript:void(0)" onclick="navigateTo('gate')" class="block py-2 px-3 rounded hover:bg-cream-200 transition-colors"><i class="fa-solid fa-house mr-2"></i>처음으로</a>
-                <a href="javascript:void(0)" onclick="navigateTo('basic')" class="block py-2 px-3 rounded hover:bg-cream-200 transition-colors">기본 정보</a>
-                <a href="javascript:void(0)" onclick="navigateTo('personality')" class="block py-2 px-3 rounded hover:bg-cream-200 transition-colors">가치관 & 성향</a>
-                <a href="javascript:void(0)" onclick="navigateTo('hobbies')" class="block py-2 px-3 rounded hover:bg-cream-200 transition-colors">일상 & 취미</a>
+        <div id="mobile-dropdown" class="hidden md:hidden bg-cream-100 border-b border-cream-200 absolute w-full left-0 z-50">
+            <nav class="flex flex-col p-4 space-y-2 font-semibold text-sm text-midnight-800">
+                <a href="javascript:void(0)" onclick="navigateTo('gate')" class="block py-2 px-4 rounded hover:bg-cream-200 transition-colors"><i class="fa-solid fa-house mr-2"></i>처음으로</a>
+                <a href="javascript:void(0)" onclick="navigateTo('basic')" class="block py-2 px-4 rounded hover:bg-cream-200 transition-colors">기본 정보</a>
+                <a href="javascript:void(0)" onclick="navigateTo('personality')" class="block py-2 px-4 rounded hover:bg-cream-200 transition-colors">가치관 & 성향</a>
+                <a href="javascript:void(0)" onclick="navigateTo('hobbies')" class="block py-2 px-4 rounded hover:bg-cream-200 transition-colors">일상 & 취미</a>
             </nav>
         </div>
     </header>
 
-    <!-- 1단계: 대문 페이지 (Gate View) -->
-    <main id="view-gate" class="page-transition page-visible flex-1 flex items-center justify-center pt-24 pb-12 min-h-[85vh] relative overflow-hidden bg-gradient-to-b from-cream-100 to-cream-50">
-        <!-- Floating Soft Shapes in Background -->
-        <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-cream-200/40 blur-3xl"></div>
-        <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-indigoCustom-500/5 blur-3xl"></div>
-
-        <div class="max-w-2xl mx-auto px-6 w-full text-center z-10 flex flex-col items-center justify-center space-y-10">
-            <!-- Simple Core Headline -->
-            <div class="space-y-4">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-midnight-800 tracking-tight">
+    <!-- Central Content Area (Absolutely locked, transition inside) -->
+    <div class="flex-1 relative w-full overflow-hidden flex items-center justify-center px-4 py-6">
+        
+        <!-- 1단계: 대문 페이지 (Gate View - Perfectly Centered, Scaled Up) -->
+        <main id="view-gate" class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out opacity-100 scale-100 z-10 px-6">
+            <div class="max-w-xl w-full text-center space-y-10">
+                <!-- Simple Clean Large Title -->
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-midnight-800 tracking-tight leading-none">
                     나를 소개합니다
                 </h1>
+
+                <!-- Compact 3 Buttons Grid (Visually enlarged) -->
+                <div class="grid grid-cols-1 gap-4 w-full max-w-sm mx-auto">
+                    <!-- Button 1: Basic Info -->
+                    <button onclick="navigateTo('basic')" class="group px-6 py-4.5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-midnight-500 rounded-xl shadow-md transition-all duration-200 flex items-center justify-between text-left">
+                        <div class="flex items-center gap-4">
+                            <span class="text-lg"><i class="fa-regular fa-user text-midnight-800"></i></span>
+                            <span class="text-sm sm:text-base font-bold text-midnight-800">기본 정보</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-midnight-800/40 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+
+                    <!-- Button 2: Personality -->
+                    <button onclick="navigateTo('personality')" class="group px-6 py-4.5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-midnight-500 rounded-xl shadow-md transition-all duration-200 flex items-center justify-between text-left">
+                        <div class="flex items-center gap-4">
+                            <span class="text-lg"><i class="fa-regular fa-heart text-midnight-800"></i></span>
+                            <span class="text-sm sm:text-base font-bold text-midnight-800">가치관 & 성향</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-midnight-800/40 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+
+                    <!-- Button 3: Hobbies -->
+                    <button onclick="navigateTo('hobbies')" class="group px-6 py-4.5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-midnight-500 rounded-xl shadow-md transition-all duration-200 flex items-center justify-between text-left">
+                        <div class="flex items-center gap-4">
+                            <span class="text-lg"><i class="fa-solid fa-person-running text-midnight-800"></i></span>
+                            <span class="text-sm sm:text-base font-bold text-midnight-800">일상 & 취미</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-midnight-800/40 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
             </div>
+        </main>
 
-            <!-- Crisp 3 Buttons Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full pt-4">
-                <!-- Button 1: Basic Info -->
-                <button onclick="navigateTo('basic')" class="group px-6 py-5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-midnight-500 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col items-center justify-center gap-3 transform hover:-translate-y-1">
-                    <span class="w-10 h-10 rounded-xl bg-midnight-50 text-midnight-800 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
-                        <i class="fa-regular fa-user"></i>
-                    </span>
-                    <span class="text-base font-bold text-midnight-800">기본 정보</span>
-                </button>
+        <!-- 2단계: 기본 정보 페이지 (Basic Info View - Scaled Up) -->
+        <main id="view-basic" class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out opacity-0 scale-95 pointer-events-none z-0 px-4">
+            <div class="max-w-2xl w-full bg-cream-50 border border-cream-200 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col justify-between max-h-[80vh]">
+                <!-- Top Header -->
+                <div class="text-center mb-6">
+                    <span class="text-xs font-mono text-midnight-800/40 font-bold uppercase tracking-widest block mb-1">01 // BASIC PROFILE</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-midnight-800">기본 정보</h2>
+                </div>
 
-                <!-- Button 2: Personality -->
-                <button onclick="navigateTo('personality')" class="group px-6 py-5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-midnight-500 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col items-center justify-center gap-3 transform hover:-translate-y-1">
-                    <span class="w-10 h-10 rounded-xl bg-midnight-50 text-midnight-800 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
-                        <i class="fa-regular fa-heart"></i>
-                    </span>
-                    <span class="text-base font-bold text-midnight-800">가치관 & 성향</span>
-                </button>
-
-                <!-- Button 3: Hobbies -->
-                <button onclick="navigateTo('hobbies')" class="group px-6 py-5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-midnight-500 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col items-center justify-center gap-3 transform hover:-translate-y-1">
-                    <span class="w-10 h-10 rounded-xl bg-midnight-50 text-midnight-800 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-person-running"></i>
-                    </span>
-                    <span class="text-base font-bold text-midnight-800">일상 & 취미</span>
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <!-- 2단계: 기본 정보 페이지 (Basic Info View) -->
-    <main id="view-basic" class="page-transition page-hidden flex-1 pt-24 pb-16 bg-cream-100">
-        <div class="max-w-3xl mx-auto px-6">
-            <!-- Upper Area -->
-            <div class="flex items-center justify-between mb-10">
-                <button onclick="navigateTo('gate')" class="text-xs font-bold text-midnight-800/60 hover:text-midnight-800 flex items-center gap-1.5 transition-colors">
-                    <i class="fa-solid fa-arrow-left"></i> 처음으로
-                </button>
-                <span class="text-[10px] font-mono text-midnight-800/50 font-bold uppercase tracking-widest">01 // BASIC PROFILE</span>
-            </div>
-
-            <!-- Page Title -->
-            <div class="text-center mb-10">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-midnight-800">기본 정보</h2>
-                <div class="w-8 h-1 bg-midnight-800 mx-auto rounded-full mt-3"></div>
-            </div>
-
-            <!-- Profile Info Card Grid -->
-            <div class="bg-cream-50 border border-cream-200 rounded-3xl p-8 shadow-sm">
-                <!-- Balanced 2x2 Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Structured Grid (Exactly 2x2, Enlarged Cards) -->
+                <div class="grid grid-cols-2 gap-4 mb-8 overflow-y-auto pr-1">
                     <!-- Name -->
-                    <div class="flex items-center gap-4 p-4 bg-cream-100/40 rounded-2xl border border-cream-200/50">
-                        <div class="w-10 h-10 rounded-xl bg-midnight-800 text-cream-50 flex items-center justify-center text-sm">
-                            <i class="fa-solid fa-signature"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-midnight-800/50 font-bold">이름</p>
-                            <p class="text-base font-bold text-midnight-800">이영후</p>
-                        </div>
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-center min-h-[90px]">
+                        <p class="text-xs text-midnight-800/50 font-bold mb-1"><i class="fa-solid fa-signature mr-1.5"></i>이름</p>
+                        <p class="text-base sm:text-lg font-bold text-midnight-800">이영후</p>
                     </div>
 
                     <!-- Age -->
-                    <div class="flex items-center gap-4 p-4 bg-cream-100/40 rounded-2xl border border-cream-200/50">
-                        <div class="w-10 h-10 rounded-xl bg-midnight-800 text-cream-50 flex items-center justify-center text-sm">
-                            <i class="fa-solid fa-cake-candles"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-midnight-800/50 font-bold">나이</p>
-                            <p class="text-base font-bold text-midnight-800">29세</p>
-                        </div>
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-center min-h-[90px]">
+                        <p class="text-xs text-midnight-800/50 font-bold mb-1"><i class="fa-solid fa-cake-candles mr-1.5"></i>나이</p>
+                        <p class="text-base sm:text-lg font-bold text-midnight-800">29세</p>
                     </div>
 
                     <!-- Residence -->
-                    <div class="flex items-center gap-4 p-4 bg-cream-100/40 rounded-2xl border border-cream-200/50">
-                        <div class="w-10 h-10 rounded-xl bg-midnight-800 text-cream-50 flex items-center justify-center text-sm">
-                            <i class="fa-solid fa-map-pin"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-midnight-800/50 font-bold">거주지</p>
-                            <p class="text-base font-bold text-midnight-800">경기도 의왕시</p>
-                        </div>
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-center min-h-[90px]">
+                        <p class="text-xs text-midnight-800/50 font-bold mb-1"><i class="fa-solid fa-map-pin mr-1.5"></i>거주지</p>
+                        <p class="text-base sm:text-lg font-bold text-midnight-800">경기도 의왕시</p>
                     </div>
 
                     <!-- Major -->
-                    <div class="flex items-center gap-4 p-4 bg-cream-100/40 rounded-2xl border border-cream-200/50">
-                        <div class="w-10 h-10 rounded-xl bg-midnight-800 text-cream-50 flex items-center justify-center text-sm">
-                            <i class="fa-solid fa-chart-simple"></i>
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-center min-h-[90px]">
+                        <p class="text-xs text-midnight-800/50 font-bold mb-1"><i class="fa-solid fa-chart-simple mr-1.5"></i>학과</p>
+                        <p class="text-base sm:text-lg font-bold text-midnight-800">통계학과</p>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation Buttons (Symmetric & Large) -->
+                <div class="grid grid-cols-3 gap-3 shrink-0">
+                    <button onclick="navigateTo('gate')" class="px-4 py-3 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        <i class="fa-solid fa-house mr-1"></i> 처음으로
+                    </button>
+                    <button onclick="navigateTo('gate')" class="px-4 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> 이전
+                    </button>
+                    <button onclick="navigateTo('personality')" class="px-4 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        다음 <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 3단계: 가치관 & 성향 페이지 (Personality View - Scaled Up) -->
+        <main id="view-personality" class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out opacity-0 scale-95 pointer-events-none z-0 px-4">
+            <div class="max-w-2xl w-full bg-cream-50 border border-cream-200 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col justify-between max-h-[82vh]">
+                <!-- Top Header -->
+                <div class="text-center mb-6 shrink-0">
+                    <span class="text-xs font-mono text-midnight-800/40 font-bold uppercase tracking-widest block mb-1">02 // VALUES & PERSONALITY</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-midnight-800">가치관 & 성향</h2>
+                </div>
+
+                <!-- Content Grid (Sized Up Cards) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 overflow-y-auto pr-1">
+                    <!-- MBTI -->
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-between min-h-[90px]">
+                        <p class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider mb-1">MBTI</p>
+                        <p class="text-sm sm:text-base font-bold text-midnight-800">ISFJ (수호자형)</p>
+                    </div>
+
+                    <!-- Relationship -->
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-between min-h-[90px]">
+                        <p class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider mb-1">인간관계 특징</p>
+                        <p class="text-sm font-semibold text-midnight-800/90 leading-relaxed">낯가림이 심하지만 친해지면 장난을 많이 치는 성격입니다.</p>
+                    </div>
+
+                    <!-- Communication -->
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-between min-h-[90px]">
+                        <p class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider mb-1">대화 / 소통 성향</p>
+                        <p class="text-sm font-semibold text-midnight-800/90 leading-relaxed">자신의 의견을 앞세우기보다 이야기를 먼저 잘 들어줍니다.</p>
+                    </div>
+
+                    <!-- Stress -->
+                    <div class="p-4 sm:p-5 bg-cream-100/40 rounded-xl border border-cream-200/50 flex flex-col justify-between min-h-[90px]">
+                        <p class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider mb-1">스트레스 대처</p>
+                        <p class="text-sm font-semibold text-midnight-800/90 leading-relaxed">맛있는 것을 찾아 먹거나 활발한 운동으로 해결합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation Buttons -->
+                <div class="grid grid-cols-3 gap-3 shrink-0">
+                    <button onclick="navigateTo('gate')" class="px-4 py-3 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        <i class="fa-solid fa-house mr-1"></i> 처음으로
+                    </button>
+                    <button onclick="navigateTo('basic')" class="px-4 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> 이전
+                    </button>
+                    <button onclick="navigateTo('hobbies')" class="px-4 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        다음 <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 4단계: 일상 & 취미 페이지 (Hobbies View - Scaled Up) -->
+        <main id="view-hobbies" class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out opacity-0 scale-95 pointer-events-none z-0 px-4">
+            <div class="max-w-2xl w-full bg-cream-50 border border-cream-200 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col justify-between max-h-[82vh]">
+                <!-- Top Header -->
+                <div class="text-center mb-6 shrink-0">
+                    <span class="text-xs font-mono text-midnight-800/40 font-bold uppercase tracking-widest block mb-1">03 // DAILY & HOBBIES</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-midnight-800">일상 & 취미</h2>
+                </div>
+
+                <!-- Content Rows (Magnified row items) -->
+                <div class="space-y-3 mb-8 overflow-y-auto pr-1">
+                    <!-- Row 1: Exercise -->
+                    <div class="flex items-center justify-between p-4 bg-cream-100/30 rounded-xl border border-cream-200/40 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-base sm:text-lg">🏸</span>
+                            <span class="text-sm sm:text-base font-bold text-midnight-800">운동</span>
                         </div>
-                        <div>
-                            <p class="text-xs text-midnight-800/50 font-bold">학과</p>
-                            <p class="text-base font-bold text-midnight-800">통계학과</p>
+                        <div class="text-sm font-semibold text-midnight-800/80">배드민턴과 수영</div>
+                    </div>
+
+                    <!-- Row 2: Content -->
+                    <div class="flex items-center justify-between p-4 bg-cream-100/30 rounded-xl border border-cream-200/40 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-base sm:text-lg">📺</span>
+                            <span class="text-sm sm:text-base font-bold text-midnight-800">콘텐츠 시청</span>
+                        </div>
+                        <div class="text-sm font-semibold text-midnight-800/80 text-right truncate max-w-[200px] sm:max-w-sm">
+                            드라마, 예능 (나는솔로, 김부장 등)
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Bottom Buttons -->
-            <div class="grid grid-cols-3 gap-2 sm:gap-4 max-w-xl mx-auto mt-10">
-                <button onclick="navigateTo('gate')" class="px-3 py-2.5 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    <i class="fa-solid fa-house mr-1"></i> 처음으로
-                </button>
-                <button onclick="navigateTo('gate')" class="px-3 py-2.5 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    <i class="fa-solid fa-arrow-left mr-1"></i> 이전: 처음으로
-                </button>
-                <button onclick="navigateTo('personality')" class="px-3 py-2.5 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    다음: 가치관 <i class="fa-solid fa-arrow-right ml-1"></i>
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <!-- 3단계: 가치관 & 성향 페이지 (Personality View) -->
-    <main id="view-personality" class="page-transition page-hidden flex-1 pt-24 pb-16 bg-cream-100">
-        <div class="max-w-3xl mx-auto px-6">
-            <!-- Upper Area -->
-            <div class="flex items-center justify-between mb-10">
-                <button onclick="navigateTo('gate')" class="text-xs font-bold text-midnight-800/60 hover:text-midnight-800 flex items-center gap-1.5 transition-colors">
-                    <i class="fa-solid fa-arrow-left"></i> 처음으로
-                </button>
-                <span class="text-[10px] font-mono text-midnight-800/50 font-bold uppercase tracking-widest">02 // VALUES & PERSONALITY</span>
-            </div>
-
-            <!-- Page Title -->
-            <div class="text-center mb-10">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-midnight-800">가치관 & 성향</h2>
-                <div class="w-8 h-1 bg-midnight-800 mx-auto rounded-full mt-3"></div>
-            </div>
-
-            <!-- Personality Info Layout (Grid of 4 Clean Boxes) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- MBTI -->
-                <div class="bg-cream-50 border border-cream-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                    <div class="space-y-2">
-                        <span class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider">MBTI</span>
-                        <h3 class="text-xl font-bold text-midnight-800">ISFJ</h3>
+                    <!-- Row 3: Food Tour -->
+                    <div class="flex items-center justify-between p-4 bg-cream-100/30 rounded-xl border border-cream-200/40 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-base sm:text-lg">🍕</span>
+                            <span class="text-sm sm:text-base font-bold text-midnight-800">맛집 투어</span>
+                        </div>
+                        <div class="text-sm font-semibold text-midnight-800/80">로컬 맛집 탐방</div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-cream-200/50 text-[11px] text-midnight-800/60 font-semibold">
-                        #수호자형 #차분한동료
+
+                    <!-- Row 4: Travel -->
+                    <div class="flex items-center justify-between p-4 bg-cream-100/30 rounded-xl border border-cream-200/40 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-base sm:text-lg">✈️</span>
+                            <span class="text-sm sm:text-base font-bold text-midnight-800">여행</span>
+                        </div>
+                        <div class="text-sm font-semibold text-midnight-800/80">새로운 곳으로 여행</div>
                     </div>
                 </div>
 
-                <!-- Human Relationship Characteristics -->
-                <div class="bg-cream-50 border border-cream-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                    <div class="space-y-2">
-                        <span class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider">인간관계 특징</span>
-                        <p class="text-sm font-bold text-midnight-800 leading-relaxed">
-                            낯가림이 심하지만 친해지면 장난을 많이 치는 성격입니다.
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-cream-200/50 text-[11px] text-midnight-800/60 font-semibold">
-                        #반전매력 #가까워지면_유쾌함
-                    </div>
-                </div>
-
-                <!-- Conversation / Communication Style -->
-                <div class="bg-cream-50 border border-cream-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                    <div class="space-y-2">
-                        <span class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider">대화 / 소통 성향</span>
-                        <p class="text-sm font-bold text-midnight-800 leading-relaxed">
-                            자신의 의견을 앞세우기보다 타인의 이야기를 먼저 잘 들어주는 편입니다.
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-cream-200/50 text-[11px] text-midnight-800/60 font-semibold">
-                        #경청형 #배려와수용
-                    </div>
-                </div>
-
-                <!-- Stress Coping Style -->
-                <div class="bg-cream-50 border border-cream-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
-                    <div class="space-y-2">
-                        <span class="text-xs font-bold text-indigoCustom-500 uppercase tracking-wider">스트레스 대처 성향</span>
-                        <p class="text-sm font-bold text-midnight-800 leading-relaxed">
-                            맛있는 음식을 찾아 먹거나 활발히 운동을 하며 스트레스를 시원하게 해소합니다.
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-cream-200/50 text-[11px] text-midnight-800/60 font-semibold">
-                        #건강한해소 #맛있는기분전환
-                    </div>
+                <!-- Footer Navigation Buttons -->
+                <div class="grid grid-cols-3 gap-3 shrink-0">
+                    <button onclick="navigateTo('gate')" class="px-4 py-3 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        <i class="fa-solid fa-house mr-1"></i> 처음으로
+                    </button>
+                    <button onclick="navigateTo('personality')" class="px-4 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> 이전
+                    </button>
+                    <button onclick="navigateTo('gate')" class="px-4 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-lg text-xs sm:text-sm transition-colors text-center truncate">
+                        처음으로 <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
                 </div>
             </div>
+        </main>
 
-            <!-- Bottom Buttons -->
-            <div class="grid grid-cols-3 gap-2 sm:gap-4 max-w-xl mx-auto mt-10">
-                <button onclick="navigateTo('gate')" class="px-3 py-2.5 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    <i class="fa-solid fa-house mr-1"></i> 처음으로
-                </button>
-                <button onclick="navigateTo('basic')" class="px-3 py-2.5 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    <i class="fa-solid fa-arrow-left mr-1"></i> 이전: 기본 정보
-                </button>
-                <button onclick="navigateTo('hobbies')" class="px-3 py-2.5 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    다음: 일상 & 취미 <i class="fa-solid fa-arrow-right ml-1"></i>
-                </button>
-            </div>
-        </div>
-    </main>
+    </div>
 
-    <!-- 4단계: 일상 & 취미 페이지 (Hobbies View) -->
-    <main id="view-hobbies" class="page-transition page-hidden flex-1 pt-24 pb-16 bg-cream-100">
-        <div class="max-w-3xl mx-auto px-6">
-            <!-- Upper Area -->
-            <div class="flex items-center justify-between mb-10">
-                <button onclick="navigateTo('gate')" class="text-xs font-bold text-midnight-800/60 hover:text-midnight-800 flex items-center gap-1.5 transition-colors">
-                    <i class="fa-solid fa-arrow-left"></i> 처음으로
-                </button>
-                <span class="text-[10px] font-mono text-midnight-800/50 font-bold uppercase tracking-widest">03 // DAILY & HOBBIES</span>
-            </div>
-
-            <!-- Page Title -->
-            <div class="text-center mb-10">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-midnight-800">일상 & 취미</h2>
-                <div class="w-8 h-1 bg-midnight-800 mx-auto rounded-full mt-3"></div>
-            </div>
-
-            <!-- Hobbies List Card Layout -->
-            <div class="bg-cream-50 border border-cream-200 rounded-3xl p-8 shadow-sm space-y-6">
-                <!-- Row 1: Exercise -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-cream-200/60">
-                    <div class="flex items-center gap-3">
-                        <span class="w-9 h-9 rounded-xl bg-midnight-100 text-midnight-800 flex items-center justify-center text-sm">
-                            🏸
-                        </span>
-                        <span class="text-sm font-extrabold text-midnight-800">운동</span>
-                    </div>
-                    <div class="text-sm font-semibold text-midnight-800/80 sm:text-right">
-                        배드민턴과 수영
-                    </div>
-                </div>
-
-                <!-- Row 2: Content -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-cream-200/60">
-                    <div class="flex items-center gap-3">
-                        <span class="w-9 h-9 rounded-xl bg-midnight-100 text-midnight-800 flex items-center justify-center text-sm">
-                            📺
-                        </span>
-                        <span class="text-sm font-extrabold text-midnight-800">콘텐츠 시청</span>
-                    </div>
-                    <div class="text-sm font-semibold text-midnight-800/80 sm:text-right">
-                        드라마 및 예능 시청 (나는솔로, 김부장 등)
-                    </div>
-                </div>
-
-                <!-- Row 3: Food Tour -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-cream-200/60">
-                    <div class="flex items-center gap-3">
-                        <span class="w-9 h-9 rounded-xl bg-midnight-100 text-midnight-800 flex items-center justify-center text-sm">
-                            🍕
-                        </span>
-                        <span class="text-sm font-extrabold text-midnight-800">맛집 투어</span>
-                    </div>
-                    <div class="text-sm font-semibold text-midnight-800/80 sm:text-right">
-                        숨겨진 로컬 맛집 탐방
-                    </div>
-                </div>
-
-                <!-- Row 4: Travel -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div class="flex items-center gap-3">
-                        <span class="w-9 h-9 rounded-xl bg-midnight-100 text-midnight-800 flex items-center justify-center text-sm">
-                            ✈️
-                        </span>
-                        <span class="text-sm font-extrabold text-midnight-800">여행</span>
-                    </div>
-                    <div class="text-sm font-semibold text-midnight-800/80 sm:text-right">
-                        새로운 환경으로 떠나는 여행
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bottom Buttons -->
-            <div class="grid grid-cols-3 gap-2 sm:gap-4 max-w-xl mx-auto mt-10">
-                <button onclick="navigateTo('gate')" class="px-3 py-2.5 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    <i class="fa-solid fa-house mr-1"></i> 처음으로
-                </button>
-                <button onclick="navigateTo('personality')" class="px-3 py-2.5 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    <i class="fa-solid fa-arrow-left mr-1"></i> 이전: 가치관
-                </button>
-                <button onclick="navigateTo('gate')" class="px-3 py-2.5 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-[10px] sm:text-xs transition-colors text-center truncate">
-                    다음: 처음으로 <i class="fa-solid fa-arrow-right ml-1"></i>
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="bg-midnight-900 py-10 text-cream-200/40 text-center border-t border-midnight-800">
-        <div class="max-w-4xl mx-auto px-6 space-y-3">
-            <p class="text-xs font-bold text-cream-100/70 flex items-center justify-center gap-2">
+    <!-- Footer Section (Fixed bottom, slimmed height) -->
+    <footer class="bg-midnight-900 py-4 text-cream-200/40 text-center border-t border-midnight-800 shrink-0 z-10">
+        <div class="max-w-4xl mx-auto px-6 flex items-center justify-between text-xs">
+            <p class="font-bold text-cream-100/60 flex items-center gap-1.5">
                 <span class="w-5 h-5 rounded bg-midnight-500 text-cream-50 flex items-center justify-center font-extrabold text-[9px]">YH</span>
-                <span>이영후 • Portfolio</span>
+                <span>이영후 포트폴리오</span>
             </p>
-            <p class="text-[10px] uppercase tracking-widest font-mono">
-                &copy; 2026 Lee Young-hoo. All rights reserved.
+            <p class="uppercase tracking-wider font-mono text-[10px]">
+                &copy; 2026 Lee Young-hoo.
             </p>
         </div>
     </footer>
@@ -423,21 +316,18 @@
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileDropdown = document.getElementById('mobile-dropdown');
 
-        mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             mobileDropdown.classList.toggle('hidden');
         });
 
-        // Close dropdown when mobile links are clicked
-        const mobileLinks = mobileDropdown.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileDropdown.classList.add('hidden');
-            });
+        // Close dropdown when mobile links or body are clicked
+        document.addEventListener('click', () => {
+            mobileDropdown.classList.add('hidden');
         });
 
-        // Single Page App (SPA) View Controller
+        // Single Page App (SPA) View Controller with fade + scale animations
         function navigateTo(targetViewId) {
-            // Get all page containers
             const views = {
                 'gate': document.getElementById('view-gate'),
                 'basic': document.getElementById('view-basic'),
@@ -445,19 +335,18 @@
                 'hobbies': document.getElementById('view-hobbies')
             };
 
-            // Transition logic
             for (const key in views) {
+                const view = views[key];
                 if (key === targetViewId) {
-                    views[key].classList.remove('page-hidden');
-                    views[key].classList.add('page-visible');
+                    // Activate and fade-in the target view in its place
+                    view.classList.remove('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
+                    view.classList.add('opacity-100', 'scale-100', 'z-10');
                 } else {
-                    views[key].classList.remove('page-visible');
-                    views[key].classList.add('page-hidden');
+                    // Instantly hide & scale down other views
+                    view.classList.remove('opacity-100', 'scale-100', 'z-10');
+                    view.classList.add('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
                 }
             }
-
-            // Scroll smoothly back to top on transitions
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
