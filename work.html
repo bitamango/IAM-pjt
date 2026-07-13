@@ -55,6 +55,9 @@
 </head>
 <body class="bg-cream-50 dark:bg-midnight-900 text-midnight-900 dark:text-cream-100 selection:bg-cream-200 dark:selection:bg-midnight-800 antialiased flex flex-col justify-between h-full transition-colors duration-300">
 
+    <!-- 1. 은은한 배경 파티클용 Canvas (마우스 반응 및 레이아웃 방해 차단) -->
+    <canvas id="particle-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
     <!-- 2. 진행률 표시바 (Progress Bar, Locked inside high z-index at the top-most boundary) -->
     <div id="top-progress-bar" class="fixed top-0 left-0 h-1.5 bg-indigoCustom-500 z-[60] transition-all duration-500 ease-out" style="width: 25%;"></div>
 
@@ -321,7 +324,101 @@
 
     <!-- Interactive Scripting -->
     <script>
-        // 1. Dark Mode State Management
+        // ----------------------------------------------------
+        // 1. 은은한 배경 파티클 (Canvas Engine)
+        // ----------------------------------------------------
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        let animationId;
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.6; // 미세한 미립자 크기
+                this.speedX = (Math.random() - 0.5) * 0.15; // 초저속 수평 기류
+                this.speedY = (Math.random() - 0.5) * 0.15; // 초저속 수직 기류
+                this.opacity = Math.random() * 0.4 + 0.1; // 은은한 최저 투명도
+                this.fadeSpeed = 0.003 + Math.random() * 0.003;
+                this.fadeIn = Math.random() > 0.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // 화면 탈출 시 반대쪽으로 재진입
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+
+                // 은은한 반짝임(Flicker) 루프
+                if (this.fadeIn) {
+                    this.opacity += this.fadeSpeed;
+                    if (this.opacity >= 0.6) this.fadeIn = false;
+                } else {
+                    this.opacity -= this.fadeSpeed;
+                    if (this.opacity <= 0.1) this.fadeIn = true;
+                }
+            }
+
+            draw() {
+                const isDark = document.documentElement.classList.contains('dark');
+                // 테마에 따라 파티클 컬러 교체 (다크: 별무리 같은 인디고 화이트, 라이트: 미드나잇 블루의 엷은 점)
+                if (isDark) {
+                    ctx.fillStyle = `rgba(165, 180, 252, ${this.opacity})`; // indigo-300
+                } else {
+                    ctx.fillStyle = `rgba(42, 67, 101, ${this.opacity * 0.45})`; // midnight-500
+                }
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            // 화면 크기별 최적의 밀도 공식 적용
+            const density = Math.floor((canvas.width * canvas.height) / 12000);
+            const limit = Math.min(density, 100); // 부하가 가지 않는 상한선
+            for (let i = 0; i < limit; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // 초기화 및 리사이즈 연결
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('DOMContentLoaded', () => {
+            resizeCanvas();
+            animate();
+        });
+
+
+        // ----------------------------------------------------
+        // 2. 다크 모드 (Dark / Light Mode Toggle)
+        // ----------------------------------------------------
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
 
@@ -385,6 +482,9 @@
             if (progressBar && progressPercent[targetViewId]) {
                 progressBar.style.width = progressPercent[targetViewId] + '%';
             }
+
+            // 스크롤 초기화 및 애니메이션 처리
+            window.scrollTo(0, 0);
 
             for (const key in views) {
                 const view = views[key];
