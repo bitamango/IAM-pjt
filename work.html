@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나를 소개합니다 | 이영후 Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        midnight: {
+                            50: '#f4f6fa',
+                            100: '#e9edf5',
+                            500: '#2A4365', // 메인 미드나잇 블루
+                            800: '#1A2A40', // 딥 미드나잇 블루
+                            900: '#0F1A24',
+                        },
+                        cream: {
+                            50: '#FDFCF7',  // 배경 크림 베이지 (매우 연함)
+                            100: '#FAF6ED', // 크림 베이지 기본
+                            200: '#F3EAD3', // 톤다운 베이지
+                            300: '#E4D5B4',
+                        },
+                        indigoCustom: {
+                            500: '#4F46E5', // 포인트 인디고 블루
+                            600: '#4338CA',
+                            700: '#3730A3',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons for Beautiful Visuals -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pretendard Web Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <style>
+        body {
+            font-family: "Pretendard", sans-serif;
+            background-color: #FDFCF7; /* cream-50 */
+        }
+        /* Custom scrollbar to match the midnight theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6ED;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A4365;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1A2A40;
+        }
+        /* Smooth Fade-In Animation */
+        .page-transition {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+        .page-hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .page-visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="text-midnight-900 selection:bg-cream-200 antialiased overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+    <!-- Navigation Bar (Always Fixed for easy traversal) -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-cream-50/80 backdrop-blur-md border-b border-cream-200 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="javascript:void(0)" onclick="navigateTo('gate')" class="text-xl font-bold tracking-tight text-midnight-800 flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-midnight-800 text-cream-50 flex items-center justify-center font-extrabold text-sm">YH</span>
+                <span>이영후</span>
+            </a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-midnight-800 hover:text-indigoCustom-500 focus:outline-none" aria-label="메뉴 열기">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <!-- Desktop Nav Items -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-midnight-800/80">
+                <a href="javascript:void(0)" onclick="navigateTo('gate')" class="hover:text-midnight-800 transition-colors"><i class="fa-solid fa-house mr-1"></i> 처음으로</a>
+                <a href="javascript:void(0)" onclick="navigateTo('about')" class="hover:text-midnight-800 transition-colors">가치관 & 성향</a>
+                <a href="javascript:void(0)" onclick="navigateTo('hobbies')" class="hover:text-midnight-800 transition-colors">일상 & 취미</a>
+                <a href="javascript:void(0)" onclick="navigateTo('contact')" class="px-4 py-2 bg-midnight-800 text-cream-50 rounded-full hover:bg-indigoCustom-600 transition-all shadow-md hover:shadow-indigoCustom-500/10">함께하기</a>
+            </nav>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-dropdown" class="hidden md:hidden bg-cream-100 border-b border-cream-200 animate-fadeIn">
+            <nav class="flex flex-col p-4 space-y-3 font-medium text-midnight-800">
+                <a href="javascript:void(0)" onclick="navigateTo('gate')" class="block py-2 px-3 rounded hover:bg-cream-200 transition-colors"><i class="fa-solid fa-house mr-2"></i>처음으로</a>
+                <a href="javascript:void(0)" onclick="navigateTo('about')" class="block py-2 px-3 rounded hover:bg-cream-200 transition-colors">가치관 & 성향</a>
+                <a href="javascript:void(0)" onclick="navigateTo('hobbies')" class="block py-2 px-3 rounded hover:bg-cream-200 transition-colors">일상 & 취미</a>
+                <a href="javascript:void(0)" onclick="navigateTo('contact')" class="block py-2 px-3 rounded bg-midnight-800 text-cream-50 text-center shadow-sm">프로젝트 연락하기</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1단계: 대문 페이지 (Gate View) -->
+    <main id="view-gate" class="page-transition page-visible flex-1 flex items-center justify-center pt-24 pb-12 min-h-[85vh] relative overflow-hidden bg-gradient-to-b from-cream-100 to-cream-50">
+        <!-- Floating Soft Shapes in Background -->
+        <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-cream-200/50 blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-indigoCustom-500/5 blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto px-6 w-full text-center z-10 flex flex-col items-center justify-center space-y-8">
+            <!-- Modern Styled Mini Profile Illustration representing a warm and tidy image -->
+            <div class="relative w-40 h-40 mb-2">
+                <div class="absolute inset-0 rounded-full border-2 border-dashed border-indigoCustom-500/30 animate-[spin_40s_linear_infinite]"></div>
+                <div class="absolute inset-2 rounded-full bg-cream-100 border border-cream-200 flex items-center justify-center shadow-md overflow-hidden">
+                    <svg class="w-5/6 h-5/6" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="75" fill="#2A4365" opacity="0.08" />
+                        <!-- Minimal Character representation -->
+                        <path d="M50 160C50 135 70 125 100 125C130 125 150 135 150 160V180H50V160Z" fill="#1A2A40" />
+                        <path d="M85 125H115V145C115 145 108 152 100 152C92 152 85 145 85 145V125Z" fill="#EAD2AC" />
+                        <rect x="75" y="60" width="50" height="65" rx="25" fill="#FCE1C6" />
+                        <path d="M72 70C72 45 85 40 100 40C115 40 128 45 128 70C128 72 125 65 120 62C115 59 100 62 100 62C100 62 85 59 80 62C75 65 72 72 72 70Z" fill="#4A3728" />
+                        <circle cx="88" cy="85" r="11" stroke="#4F46E5" stroke-width="2.5" fill="none"/>
+                        <circle cx="112" cy="85" r="11" stroke="#4F46E5" stroke-width="2.5" fill="none"/>
+                        <line x1="99" y1="85" x2="101" y2="85" stroke="#4F46E5" stroke-width="2.5" />
+                        <path d="M94 102C94 102 97 106 100 106C103 106 106 102 106 102" stroke="#4A3728" stroke-width="2.5" stroke-linecap="round" />
+                        <circle cx="81" cy="94" r="4" fill="#F3A395" opacity="0.6"/>
+                        <circle cx="119" cy="94" r="4" fill="#F3A395" opacity="0.6"/>
+                    </svg>
+                </div>
+                <div class="absolute -bottom-1 -right-1 bg-indigoCustom-500 text-cream-50 text-[10px] px-2.5 py-1 rounded-full font-bold shadow-md">
+                    경청 & 신뢰 🍀
+                </div>
+            </div>
+
+            <!-- Crisp Primary Message Requested by User -->
+            <div class="space-y-4">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-midnight-800 tracking-tight">
+                    나를 소개합니다
+                </h1>
+                <div class="w-16 h-1 bg-indigoCustom-500 mx-auto rounded-full my-6"></div>
+                <p class="text-base sm:text-lg md:text-xl text-midnight-800/80 max-w-2xl mx-auto leading-relaxed font-medium">
+                    "철저한 분석과 따뜻한 경청으로, <br class="sm:hidden" />함께하는 팀을 빛내는 이영후입니다."
+                </p>
+            </div>
+
+            <!-- Interactive 3 Buttons for Sub-page Navigation -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl pt-8">
+                <!-- Button 1: About -->
+                <button onclick="navigateTo('about')" class="group relative px-6 py-5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-indigoCustom-500 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <span class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+                    <span class="text-base font-bold text-midnight-800">가치관 & 성향</span>
+                    <span class="text-xs text-midnight-800/50">경청하는 동료로서의 자세</span>
+                </button>
+
+                <!-- Button 2: Hobbies -->
+                <button onclick="navigateTo('hobbies')" class="group relative px-6 py-5 bg-cream-50 hover:bg-cream-100 border border-cream-300 hover:border-indigoCustom-500 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <span class="w-12 h-12 rounded-xl bg-indigo-100 text-indigoCustom-500 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </span>
+                    <span class="text-base font-bold text-midnight-800">일상 & 취미</span>
+                    <span class="text-xs text-midnight-800/50">기민한 운동과 기분좋은 미식</span>
+                </button>
+
+                <!-- Button 3: Contact -->
+                <button onclick="navigateTo('contact')" class="group relative px-6 py-5 bg-midnight-800 hover:bg-indigoCustom-600 border border-midnight-900 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <span class="w-12 h-12 rounded-xl bg-midnight-900/60 text-cream-50 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-handshake"></i>
+                    </span>
+                    <span class="text-base font-bold text-cream-50">함께할 팀원 찾기</span>
+                    <span class="text-xs text-cream-200/50">간단한 러브콜 제안과 소통</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 2단계: 가치관 페이지 (About View) -->
+    <main id="view-about" class="page-transition page-hidden flex-1 pt-24 pb-16 bg-cream-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Breadcrumb Navigation & Top Action -->
+            <div class="flex items-center justify-between mb-12">
+                <button onclick="navigateTo('gate')" class="text-xs font-semibold text-midnight-800/60 hover:text-indigoCustom-500 flex items-center gap-1.5 transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i> 대문으로 가기
+                </button>
+                <span class="text-xs font-mono text-indigoCustom-500 font-bold uppercase tracking-widest">Page 01 // Philosophy</span>
+            </div>
+
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigoCustom-500">My Philosophy</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-midnight-800 tracking-tight">화합을 이루고 분석을 뒷받침하는 든든함</h2>
+                <div class="w-12 h-1 bg-indigoCustom-500 mx-auto rounded-full mt-4"></div>
+                <p class="text-midnight-800/70 text-sm md:text-base leading-relaxed pt-2">
+                    팀 내에서 조용하지만 확실한 존재감을 내뿜는 ISFJ의 성향을 담아,<br class="hidden sm:inline" />
+                    어떠한 협업 상황에서도 화목한 분위기와 완벽한 백업을 지향합니다.
+                </p>
+            </div>
+
+            <!-- ISFJ Key Trait Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Card 1: Warm Listener -->
+                <div class="bg-cream-50 border border-cream-200/60 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mb-6 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-ear-listen"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-midnight-800 mb-3">따뜻하고 유연한 경청자</h3>
+                        <p class="text-midnight-800/70 text-sm leading-relaxed">
+                            독단적으로 나의 의견을 앞세우기보단, 팀원들의 목소리에 먼저 귀 기울입니다. 복잡한 요구사항이나 아이디어 조각들을 놓치지 않고 꼼꼼히 들어주어 회의의 화목함을 지탱합니다.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-200/40 text-xs font-semibold text-amber-800">
+                        #ISFJ_수호자형 #경청형동료
+                    </div>
+                </div>
+
+                <!-- Card 2: Errorless Supporter -->
+                <div class="bg-cream-50 border border-cream-200/60 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigoCustom-500 flex items-center justify-center mb-6 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-midnight-800 mb-3">오차 없는 철저한 서포터</h3>
+                        <p class="text-midnight-800/70 text-sm leading-relaxed">
+                            통계학 전공을 살린 데이터 리서치를 기반으로 삼습니다. 사실과 근거가 누락되지 않도록 빈틈없는 사전 조사를 거치고, 분석 결과의 정합성을 한 번 더 검증하는 수호자입니다.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-200/40 text-xs font-semibold text-indigoCustom-500">
+                        #빈틈없는_자료조사 #정밀한데이터분석
+                    </div>
+                </div>
+
+                <!-- Card 3: Harmony Maker -->
+                <div class="bg-cream-50 border border-cream-200/60 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-midnight-800 mb-3">팀을 빛내는 약속 이행자</h3>
+                        <p class="text-midnight-800/70 text-sm leading-relaxed">
+                            스스로의 공적을 내세우기보다는, 동료들이 마음놓고 개발과 디자인에 집중하도록 묵묵하게 토대를 만듭니다. 약속된 기한은 반드시 지키며, 팀의 신뢰 지수를 높입니다.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-200/40 text-xs font-semibold text-emerald-800">
+                        #팀_우선주의 #든든한안정감
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISFJ Character quote -->
+            <div class="p-6 md:p-8 bg-midnight-800 text-cream-100 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-2 text-center md:text-left">
+                    <h4 class="text-lg font-bold text-cream-50">"나의 가치는 팀 전체의 완성도가 말해줍니다."</h4>
+                    <p class="text-xs text-cream-200/70">이영후가 생각하는 서포터로서의 진정한 역할 정의</p>
+                </div>
+                <div class="text-xs md:text-sm font-medium border border-cream-200/20 px-4 py-2 rounded-xl bg-midnight-900/40">
+                    <i class="fa-solid fa-quote-left mr-2 opacity-50"></i>팀의 빈틈을 메우는 섬세함으로 가치를 증명합니다.<i class="fa-solid fa-quote-right ml-2 opacity-50"></i>
+                </div>
+            </div>
+
+            <!-- Bottom Sub-navigation Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mt-12 pt-6 border-t border-cream-300/60">
+                <button onclick="navigateTo('gate')" class="px-6 py-3 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-xl text-sm transition-colors w-full sm:w-auto">
+                    <i class="fa-solid fa-house mr-1.5"></i>처음으로
+                </button>
+                <button onclick="navigateTo('hobbies')" class="px-6 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-sm transition-colors w-full sm:w-auto">
+                    다음: 나의 일상 보기 <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3단계: 일상 & 취미 페이지 (Hobbies View) -->
+    <main id="view-hobbies" class="page-transition page-hidden flex-1 pt-24 pb-16 bg-cream-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Breadcrumb Navigation -->
+            <div class="flex items-center justify-between mb-12">
+                <button onclick="navigateTo('gate')" class="text-xs font-semibold text-midnight-800/60 hover:text-indigoCustom-500 flex items-center gap-1.5 transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i> 대문으로 가기
+                </button>
+                <span class="text-xs font-mono text-indigoCustom-500 font-bold uppercase tracking-widest">Page 02 // Human Touch</span>
+            </div>
+
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigoCustom-500">Human Touch</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-midnight-800 tracking-tight">건강한 땀방울과 다정한 미식으로 채우는 일상</h2>
+                <div class="w-12 h-1 bg-indigoCustom-500 mx-auto rounded-full mt-4"></div>
+                <p class="text-midnight-800/70 text-sm md:text-base pt-2">
+                    주말과 여가시간에는 코트 위를 기민하게 뛰고 물살을 가르며 활력을 얻고, <br class="hidden sm:inline" />
+                    숨겨진 맛집을 찾아다니며 내면을 따뜻하고 편안하게 정비합니다.
+                </p>
+            </div>
+
+            <!-- Hobbies Grid Card Structure -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Hobby Card 1: Badminton -->
+                <div class="bg-cream-100 border border-cream-200/80 rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-gradient-to-br from-indigo-500 to-indigoCustom-700 relative flex items-center justify-center overflow-hidden">
+                            <div class="absolute inset-0 opacity-15">
+                                <svg width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#FAF6ED" stroke-width="1"/>
+                                    </pattern>
+                                    <rect width="100%" height="100%" fill="url(#grid)"/>
+                                </svg>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-cream-100/90 text-midnight-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow">
+                                🏸 배드민턴
+                            </div>
+                            <span class="text-6xl drop-shadow-md">🏸</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-midnight-800">코트 전체를 커버하는 넓은 시야</h3>
+                            <p class="text-xs sm:text-sm text-midnight-800/70 leading-relaxed">
+                                기민한 스피드로 셔틀콕의 경로를 끝까지 쫓아 걷어 올립니다. 포기하지 않는 끈기와 빠른 반사신경은 배드민턴 랠리에서 단련된 최고의 자산입니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2">
+                        <span class="text-[11px] font-semibold text-indigoCustom-500 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                            #체력수련 #끈기있는집념
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Hobby Card 2: Swimming -->
+                <div class="bg-cream-100 border border-cream-200/80 rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-gradient-to-br from-teal-400 to-emerald-600 relative flex items-center justify-center overflow-hidden">
+                            <div class="absolute inset-0 opacity-15">
+                                <svg width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0,50 C150,100 350,0 500,50 L500,200 L0,200 Z" fill="#FAF6ED" />
+                                </svg>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-cream-100/90 text-midnight-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow">
+                                🏊 수영
+                            </div>
+                            <span class="text-6xl drop-shadow-md">🏊</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-midnight-800">호흡을 정돈하며 집중하는 시간</h3>
+                            <p class="text-xs sm:text-sm text-midnight-800/70 leading-relaxed">
+                                물속에서 일정한 리듬으로 들이쉬고 내쉬며, 마음을 평온하게 다잡고 무한한 집중력을 기릅니다. 체력과 정신을 차분하게 수련하는 소중한 습관입니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2">
+                        <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+                            #페이스조절 #꾸준한루틴
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Hobby Card 3: Food Tour -->
+                <div class="bg-cream-100 border border-cream-200/80 rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-gradient-to-br from-amber-400 to-amber-600 relative flex items-center justify-center overflow-hidden">
+                            <div class="absolute inset-0 opacity-20">
+                                <div class="w-full h-full bg-grid"></div>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-cream-100/90 text-midnight-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow">
+                                🍕 맛집 탐방
+                            </div>
+                            <span class="text-6xl drop-shadow-md">🍕</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-midnight-800">일상을 촉촉하게 채우는 미식과 조화</h3>
+                            <p class="text-xs sm:text-sm text-midnight-800/70 leading-relaxed">
+                                숨어 있는 좋은 공간과 맛을 수집하는 것은 삶의 윤활유입니다. 따뜻한 음식을 함께 나누며 소소하고 유쾌한 소통을 이어갈 줄 아는 인간미를 지녔습니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2">
+                        <span class="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
+                            #공간수집가 #친화적인커뮤니케이터
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Sub-navigation Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mt-12 pt-6 border-t border-cream-300/60">
+                <button onclick="navigateTo('gate')" class="px-6 py-3 bg-cream-200 hover:bg-cream-300 text-midnight-800 font-bold rounded-xl text-sm transition-colors w-full sm:w-auto">
+                    <i class="fa-solid fa-house mr-1.5"></i>처음으로
+                </button>
+                <button onclick="navigateTo('contact')" class="px-6 py-3 bg-midnight-800 hover:bg-indigoCustom-600 text-cream-50 font-bold rounded-xl text-sm transition-colors w-full sm:w-auto">
+                    다음: 협업 제안하기 <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 4단계: 아웃트로 & 협업 요청 페이지 (Contact View) -->
+    <main id="view-contact" class="page-transition page-hidden flex-1 pt-24 pb-16 bg-midnight-800 text-cream-100 relative overflow-hidden">
+        <!-- Background Decorators -->
+        <div class="absolute top-1/2 -left-36 w-72 h-72 rounded-full bg-indigoCustom-500/10 blur-3xl"></div>
+        <div class="absolute -bottom-12 -right-12 w-80 h-80 rounded-full bg-cream-300/5 blur-2xl"></div>
+
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <!-- Breadcrumb Navigation -->
+            <div class="flex items-center justify-between mb-12">
+                <button onclick="navigateTo('gate')" class="text-xs font-semibold text-cream-200/60 hover:text-indigoCustom-500 flex items-center gap-1.5 transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i> 대문으로 가기
+                </button>
+                <span class="text-xs font-mono text-indigoCustom-500 font-bold uppercase tracking-widest">Page 03 // Partnership</span>
+            </div>
+
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigoCustom-500">LET'S WORK TOGETHER</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-cream-50 tracking-tight">함께할 다음 팀원을 찾습니다</h2>
+                <div class="w-12 h-1 bg-indigoCustom-500 mx-auto rounded-full"></div>
+                <p class="text-cream-200/70 text-sm md:text-base leading-relaxed">
+                    데이터가 모호해 헤매고 있거나 회의 정리가 막막할 때, <br class="hidden sm:inline" />
+                    수치 검증과 따뜻한 공감 능력으로 프로젝트의 마침표를 완벽하게 함께 찍을게요.
+                </p>
+            </div>
+
+            <!-- Contact Box & Interactive Message Form Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch mb-12">
+                <!-- Quick Contact Copy Card (Left) -->
+                <div class="md:col-span-5 bg-midnight-900/60 border border-midnight-700/50 p-6 md:p-8 rounded-3xl flex flex-col justify-between space-y-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-cream-50">간편하게 연락하기</h3>
+                        <p class="text-xs text-cream-200/50 leading-relaxed">우측 폼을 적어 전송하거나, 아래의 연락처를 복사해 이메일이나 오픈채팅으로 바로 편하게 말 걸어주세요!</p>
+                    </div>
+
+                    <!-- Contact Channels -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-midnight-800/40 rounded-xl border border-midnight-700/20 group">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-indigoCustom-500/20 text-indigoCustom-500 flex items-center justify-center text-sm">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </span>
+                                <div>
+                                    <p class="text-[9px] text-cream-200/40 uppercase tracking-wider font-mono">EMAIL</p>
+                                    <p id="email-text" class="text-xs sm:text-sm font-semibold text-cream-100">lee.younghoo@example.com</p>
+                                </div>
+                            </div>
+                            <button onclick="copyToClipboard('email-text', '이메일 주소')" class="p-2 text-cream-200/40 hover:text-indigoCustom-500 hover:bg-midnight-700/50 rounded-lg transition-all" title="이메일 주소 복사">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-midnight-800/40 rounded-xl border border-midnight-700/20 group">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-500 flex items-center justify-center text-sm">
+                                    <i class="fa-regular fa-comment"></i>
+                                </span>
+                                <div>
+                                    <p class="text-[9px] text-cream-200/40 uppercase tracking-wider font-mono">Kakaotalk</p>
+                                    <p id="kakao-text" class="text-xs sm:text-sm font-semibold text-cream-100">open.kakao.com/o/younghoo</p>
+                                </div>
+                            </div>
+                            <button onclick="copyToClipboard('kakao-text', '카카오톡 오픈채팅 주소')" class="p-2 text-cream-200/40 hover:text-amber-500 hover:bg-midnight-700/50 rounded-lg transition-all" title="오픈챗 주소 복사">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Location info -->
+                    <div class="text-[11px] text-cream-200/40 flex items-center gap-1.5">
+                        <i class="fa-solid fa-location-dot text-red-400"></i>
+                        <span>서울 및 온/오프라인 프로젝트 모두 협업 가능</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Message Sender (Right) -->
+                <div class="md:col-span-7 bg-midnight-900/40 border border-midnight-700/30 p-6 md:p-8 rounded-3xl">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <h3 class="text-lg font-bold text-cream-50 mb-2 flex items-center gap-2">
+                            <i class="fa-regular fa-paper-plane text-indigoCustom-500"></i>
+                            간이 동료 러브콜 보내기
+                        </h3>
+                        <div>
+                            <label class="block text-xs font-semibold text-cream-200/70 mb-1.5">보내시는 팀원명 / 팀 이름</label>
+                            <input type="text" id="form-sender" required placeholder="예시: 7조 기획자 김철수" class="w-full bg-midnight-900 border border-midnight-700/50 rounded-xl px-4 py-3 text-sm text-cream-100 placeholder-cream-200/30 focus:outline-none focus:border-indigoCustom-500 transition-colors" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-cream-200/70 mb-1.5">함께하고픈 주제 / 간단한 메시지</label>
+                            <textarea rows="4" id="form-message" required placeholder="예시: 영후님 안녕하세요! 저희 핀테크 포트폴리오 프로젝트의 통계 자료분석 및 시각화를 함께 채워줄 팀원을 찾고 있어 연락해 봅니다." class="w-full bg-midnight-900 border border-midnight-700/50 rounded-xl px-4 py-3 text-sm text-cream-100 placeholder-cream-200/30 focus:outline-none focus:border-indigoCustom-500 transition-colors resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-indigoCustom-500 hover:bg-indigoCustom-600 text-cream-50 text-sm font-bold rounded-xl transition-all shadow-lg hover:shadow-indigoCustom-500/30 flex items-center justify-center gap-2">
+                            <span id="submit-text">메시지 띄우기 (시뮬레이션)</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Return to Home -->
+            <div class="text-center">
+                <button onclick="navigateTo('gate')" class="px-8 py-3.5 bg-cream-50/10 hover:bg-cream-50/20 text-cream-100 border border-cream-200/20 rounded-xl text-sm font-bold transition-all">
+                    <i class="fa-solid fa-house mr-2"></i>첫 대문 화면으로 가기
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-midnight-900 py-12 text-cream-200/40 text-center border-t border-midnight-800">
+        <div class="max-w-6xl mx-auto px-6 space-y-4">
+            <p class="text-sm font-bold text-cream-100/70 flex items-center justify-center gap-2">
+                <span class="w-6 h-6 rounded bg-indigoCustom-500 text-cream-50 flex items-center justify-center font-extrabold text-[10px]">YH</span>
+                <span>이영후 • Support Partner</span>
+            </p>
+            <p class="text-xs max-w-md mx-auto leading-relaxed">
+                통계 전공과 따뜻한 경청을 무기삼아 팀을 뒤에서 단단하게 받쳐줍니다.<br />
+                함께 머리를 맞대어 멋진 결과물을 탄생시켜 보아요.
+            </p>
+            <div class="w-full h-[1px] bg-midnight-800 max-w-xs mx-auto my-4"></div>
+            <p class="text-[10px] uppercase tracking-widest font-mono">
+                &copy; 2026 Lee Young-hoo. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Beautiful Native Floating Toast for Actions -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300 max-w-sm w-[90vw] bg-cream-100 border border-cream-300 shadow-2xl p-4 rounded-2xl flex items-start gap-3">
+        <div id="toast-icon" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"></div>
+        <div class="flex-1 space-y-1">
+            <h4 id="toast-title" class="text-xs sm:text-sm font-bold text-midnight-800">알림 제목</h4>
+            <p id="toast-message" class="text-[11px] sm:text-xs text-midnight-800/70 leading-relaxed">알림 내용 상세 정보</p>
+        </div>
+        <button onclick="hideToast()" class="text-midnight-800/40 hover:text-midnight-800 text-xs focus:outline-none p-1">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Interactive Scripting -->
+    <script>
+        // Toggle mobile hamburger menu dropdown
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileDropdown = document.getElementById('mobile-dropdown');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when mobile links are clicked
+        const mobileLinks = mobileDropdown.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileDropdown.classList.add('hidden');
+            });
+        });
+
+        // Single Page App (SPA) View Controller
+        function navigateTo(targetViewId) {
+            // Get all page containers
+            const views = {
+                'gate': document.getElementById('view-gate'),
+                'about': document.getElementById('view-about'),
+                'hobbies': document.getElementById('view-hobbies'),
+                'contact': document.getElementById('view-contact')
+            };
+
+            // Transition logic
+            for (const key in views) {
+                if (key === targetViewId) {
+                    views[key].classList.remove('page-hidden');
+                    views[key].classList.add('page-visible');
+                } else {
+                    views[key].classList.remove('page-visible');
+                    views[key].classList.add('page-hidden');
+                }
+            }
+
+            // Scroll smoothly back to top on transitions
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Custom copy clipboard system (using legacy document.execCommand to bypass iframe navigator restrictions)
+        function copyToClipboard(elementId, labelName) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            const tempInput = document.createElement("input");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast(
+                        "success", 
+                        "클립보드 복사 완료", 
+                        `${labelName}가 성공적으로 복사되었습니다. 편하게 연락주세요!`
+                    );
+                } else {
+                    throw new Error("Unable to copy");
+                }
+            } catch (err) {
+                showToast("error", "복사 실패", "복사에 실패했습니다. 수동으로 드래그해 복증해주세요.");
+            }
+            
+            document.body.removeChild(tempInput);
+        }
+
+        // Handles mock submission on the CTA form
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const senderName = document.getElementById('form-sender').value;
+            const messageVal = document.getElementById('form-message').value;
+            const submitBtn = document.getElementById('contact-form').querySelector('button[type="submit"]');
+            const originalText = document.getElementById('submit-text').innerText;
+            
+            // Show loading state
+            document.getElementById('submit-text').innerText = "메시지 보내는 중...";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // Success feedback
+                showToast(
+                    "info", 
+                    "소중한 동료 제안 수신 완료", 
+                    `${senderName} 님, 제안 감사합니다! 기재해주신 소통 창구로 신속히 연락해 함께 멋진 팀을 완성하겠습니다.`
+                );
+                
+                // Reset form & state
+                document.getElementById('contact-form').reset();
+                document.getElementById('submit-text').innerText = originalText;
+                submitBtn.disabled = false;
+            }, 1000);
+        }
+
+        // Universal Toast Notification Handler
+        let toastTimeout;
+        function showToast(type, title, message) {
+            const toast = document.getElementById('custom-toast');
+            const iconBox = document.getElementById('toast-icon');
+            const titleEl = document.getElementById('toast-title');
+            const msgEl = document.getElementById('toast-message');
+            
+            // Configure themes
+            if (type === 'success') {
+                iconBox.className = "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-indigo-100 text-indigoCustom-500 text-lg";
+                iconBox.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+            } else if (type === 'info') {
+                iconBox.className = "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-emerald-100 text-emerald-600 text-lg";
+                iconBox.innerHTML = '<i class="fa-regular fa-paper-plane"></i>';
+            } else {
+                iconBox.className = "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-amber-100 text-amber-600 text-lg";
+                iconBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            }
+            
+            titleEl.innerText = title;
+            msgEl.innerText = message;
+            
+            // Show toast slide-in
+            toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            // Clear existing timeout
+            clearTimeout(toastTimeout);
+            
+            // Auto close after 4.5 seconds
+            toastTimeout = setTimeout(() => {
+                hideToast();
+            }, 4500);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('custom-toast');
+            toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+        }
+
+        // Auto trigger a soft warm introductory toast on load
+        window.onload = function() {
+            setTimeout(() => {
+                showToast(
+                    "success", 
+                    "이영후의 포트폴리오에 오신 것을 환영합니다!", 
+                    "원하는 버튼을 선택하여 저를 더 알아보고 제안을 전달해 보세요."
+                );
+            }, 800);
+        };
+    </script>
+</body>
+</html>
